@@ -1,9 +1,13 @@
-const AddNewActivity = async function (name,difficulty,duration,season,countriesId){
-  if(name&&difficulty&&duration&&season&&countriesId){
+const {Activity} = require('../db.js');
+let id = 1;
 
-  } else {
-
-  }
+function AddNewActivity (name,difficulty,duration,season,countryId){
+    return Activity.create({
+      id:id++,
+      name,
+      difficulty,
+      duration,
+      season}).then(result => result.addCountries(countryId));
 }
 
 module.exports = {

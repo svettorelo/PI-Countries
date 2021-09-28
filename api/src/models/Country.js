@@ -33,9 +33,6 @@ module.exports = (sequelize) => {
     },
     area:{
       type: DataTypes.DECIMAL,  //DECIMAL?
-    },
-    population:{
-      type: DataTypes.INTEGER,
     }
   });
 };

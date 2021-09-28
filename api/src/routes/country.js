@@ -1,21 +1,32 @@
 const { Router } = require('express');
 const router = Router();
-let countries = [];
-const {AddCountry,GetCountries} = require('../controllers/country');
+const {AddCountry,GetCountries,GetCountryDetail,SearchCountries} = require('../controllers/country');
+//const {Country} = require("../db.js");
+
+router.post('/',(req,res)=>{
+  AddCountry();    //load the db with data POST from landing page
+  res.send('db loaded!')
+});
+
+router.get('/:id',(req,res)=>{
+  let {id}=req.params;
+  GetCountryDetail(id)
+    .then(response=> res.json(response))
+    .catch(err=>res.json({message: err}));
+});
 
 router.get('/',(req,res)=>{
-  try {
-    //countries = GetCountries();
-      if (!countries.length) {       //if countries array is empty
-        AddCountry();
-        res.json('countries added');
-      } else {
-      console.log(`countries not axios`);
-      res.json(countries);
+    let {name} = req.query;
+    if(name){
+      SearchCountries(name)
+        .then(matches=>res.json(matches))
+        .catch(err=>res.json({error:'search', message:err}));
     }
-  } catch(err){
-    res.send('it didnt work')
-  }
+    else {
+      GetCountries()
+        .then(countries=>res.json(countries))
+        .catch(err=>res.json({error:'get', message:err}));
+    }
 });
 
 module.exports = router;
