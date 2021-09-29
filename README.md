@@ -1,11 +1,11 @@
 <p align='left'>
-    <img src='https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp' </img>
+    <img src='https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp' alt="logo"/>
 </p>
 
 # Individual Project - Henry Countries
 
 <p align="left">
-  <img height="200" src="./countries.png" />
+  <img height="200" src="./countries.png" alt="countries.png"/>
 </p>
 
 ## Objetivos del Proyecto
@@ -70,9 +70,9 @@ __IMPORTANTE__: Para las funcionalidades de filtrado y ordenamiento NO pueden ut
 
 ### Únicos Endpoints/Flags que pueden utilizar
 
-  - GET https://restcountries.eu/rest/v2/all
-  - GET https://restcountries.eu/rest/v2/name/{name}
-  - GET https://restcountries.eu/rest/v2/alpha/{code}
+  - GET https://restcountries.com/v2/all
+  - GET https://restcountries.com/v2/name/{name}
+  - GET https://restcountries.com/v2/alpha/{code}
 
 ### Requerimientos mínimos:
 

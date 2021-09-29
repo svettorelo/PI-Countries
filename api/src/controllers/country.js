@@ -2,7 +2,7 @@ const {Country,Activity} = require('../db.js');
 const axios = require('axios');
 const {Op} = require('sequelize');
 const {BASE_URL} = require('../constants');
-let countries = [];
+
 
 // function GetCountries(req,res,next){
 //   Country.findAll()
@@ -13,15 +13,19 @@ let countries = [];
 //     })
 //     .catch(err=> {console.error(err);next(err);})}
 
-function GetCountries(){
-  return Country.findAll()
+function GetCountries(page){
+  let countries = [];
+  return Country.findAndCountAll({
+    limit: (page===0) ? 9 : 10,             //pagination
+    offset: (page===0) ? 0 : page*10 -1
+  })
     .then(response => {
-      response.forEach(co => countries.push({
+      response.rows.forEach(co => countries.push({
         name: co.name,
         flag: co.flag,
         continent: co.continent
       }));
-      return countries;
+      return {countries,pages:response.count};
     })
     .catch(err=> {
       console.error(err);

@@ -16,14 +16,14 @@ router.get('/:id',(req,res)=>{
 });
 
 router.get('/',(req,res)=>{
-    let {name} = req.query;
+    let {name,page} = req.query;
     if(name){
       SearchCountries(name)
         .then(matches=>res.json(matches))
         .catch(err=>res.json({error:'search', message:err}));
     }
     else {
-      GetCountries()
+      GetCountries(parseInt(page))
         .then(countries=>res.json(countries))
         .catch(err=>res.json({error:'get', message:err}));
     }

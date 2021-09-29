@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
     },
     difficulty:{
       type: DataTypes.INTEGER,
-      // validate:{             TO CHECK LATER!
-      //   min: 1,
-      //   max: 5
-      // }
+      validate:{
+        min: 1,
+        max: 5
+      }
     },
     duration:{
       type: DataTypes.INTEGER,
