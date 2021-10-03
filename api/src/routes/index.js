@@ -15,9 +15,4 @@ router.get('/',(req,res)=>{
   res.send('homePage');
 })
 
-// router.post('/',(req,res)=>{
-//   AddCountry();    //load the db with data
-//   res.send('db loaded!')
-// });
-
 module.exports = router;

@@ -1,31 +1,28 @@
-const { Router } = require('express');
+const {Router} = require('express');
 const router = Router();
-const {AddCountry,GetCountries,GetCountryDetail,SearchCountries} = require('../controllers/country');
-//const {Country} = require("../db.js");
+const {CountryList,GetCountries,GetCountryDetail,SearchCountries} = require('../controllers/country');
 
-router.post('/',(req,res)=>{
-  AddCountry();    //load the db with data POST from landing page
-  res.send('db loaded!')
-});
-
-router.get('/:id',(req,res)=>{
+router.get('/:id',(req,res,next)=>{
   let {id}=req.params;
   GetCountryDetail(id)
-    .then(response=> res.json(response))
-    .catch(err=>res.json({message: err}));
+    .then(country => res.json(country))
+    .catch(err => next(err));
 });
 
-router.get('/',(req,res)=>{
-    let {name,page} = req.query;
+router.get('/',(req,res,next)=>{
+    let {name,page,list} = req.query;
     if(name){
       SearchCountries(name)
-        .then(matches=>res.json(matches))
-        .catch(err=>res.json({error:'search', message:err}));
-    }
-    else {
-      GetCountries(parseInt(page))
-        .then(countries=>res.json(countries))
-        .catch(err=>res.json({error:'get', message:err}));
+        .then(matches => res.json(matches))
+        .catch(err => next(err));
+    } else if(list){
+      CountryList()
+        .then(list => res.json(list))
+        .catch(err => next(err));
+    } else {
+      GetCountries(page?parseInt(page):0)
+        .then(countries => res.json(countries))
+        .catch(err => next(err));
     }
 });
 
