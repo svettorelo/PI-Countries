@@ -1,13 +1,10 @@
 import './App.css';
 import React,{useEffect,useState} from "react"; //mio
 import {BrowserRouter, Route} from 'react-router-dom';
-import {connect,useDispatch} from "react-redux";
 import Home  from './components/Home';
 import CountryDetail from './components/CountryDetail';
 import LandingPage from './components/LandingPage'
 import NewActivity from "./components/NewActivity";
-import {getCountries} from "./actions";
-import {bindActionCreators} from "redux";
 
 
 

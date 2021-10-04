@@ -21,7 +21,7 @@ const activities = country.activities.map(c=>{
 })
   function exitCountryDetail(){
     props.clearCountryDetail();
-    props.getCountries(0); //goes to home page 0
+    props.getCountries(0); //goes to home page 0 AUNQUE DEBERIA IR A SU PAGINA ANTERIOR!
   }
 
   return (

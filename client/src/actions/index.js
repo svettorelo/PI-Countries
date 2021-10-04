@@ -50,5 +50,6 @@ export function searchCountry(name){
       )
   }
 }
-// export function addActivity(activity){
-// axios.post(ACTIVITY_URL)}
+export function addActivity(activity){
+  axios.post(ACTIVITY_URL,activity)
+    .then(result=>alert(result.data.message))}

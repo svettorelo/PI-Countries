@@ -2,9 +2,11 @@ import {Link} from "react-router-dom";
 import './NewActivity.css'
 import {connect} from "react-redux";
 import {useState} from "react";
+import {addActivity} from "../actions";
+import axios from "axios";
 
 export function NewActivity(props){
-  const [activity,setActivity] = useState({});
+  const [activity,setActivity] = useState({countryId:[]});
   const selectList = props.listAll.map(country => <option name={country.id} value={country.id}>{country.name}</option>)
 //const {name,difficulty,duration,season,countryId} = req.body;
 
@@ -16,12 +18,16 @@ export function NewActivity(props){
   function postActivity(e){
     e.preventDefault();
     console.log(activity);
+    axios.post('http://localhost:3001/activity',activity)
+      .then(result=>alert(result.data.message))
+    // props.addActivity(activity);
   }
   return (
     <div>
       <Link to="/home">HOME</Link><br/>
-      <h2>Add a new activity</h2>
-      <form  onSubmit={e=>postActivity(e)}  autoComplete="off">
+      <fieldset>
+        <legend><h2>Add new activity</h2></legend>
+      <form onSubmit={e=>postActivity(e)}  autoComplete="off">
         <label htmlFor="name">Activity name: </label>
         <input name="name" type="text" value={activity.name} onChange={(e)=>changeValues(e)}/><br/>
         <label htmlFor="difficulty">Difficulty: </label>
@@ -35,7 +41,7 @@ export function NewActivity(props){
         </datalist>
         <div> ___________1___2___3___4___5_</div>
         <label htmlFor="duration">Duration (hs): </label>
-        <input type="number" name="duration" value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
+        <input type="number" name="duration" min="0" value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
         <label htmlFor="season">Season: </label>
           <input list="seasons" name="season" value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
             <datalist id="seasons">
@@ -45,17 +51,23 @@ export function NewActivity(props){
               <option value="spring"/>
             </datalist>
         <br/>
-        <label htmlFor="countriesId">Select countries related to this activity: </label><br/>
-        <select multiple name="countriesId" size="10" onChange={(e)=>changeValues(e)}>
+        <label htmlFor="countryId">Select countries related to this activity: </label><br/>
+        <select multiple id="countryId" value={activity.countryId} name="countryId" size="10" onChange={(e)=>{
+          setActivity({...activity,countryId:Array.from(e.target.selectedOptions).map(el=>el.value)})
+        }}>
           {selectList}
         </select><br/>
         <input type="submit" />
       </form>
+      </fieldset>
     </div>
   )
 }
 const mapStateToProps = (state) => ({     //subscribe component to state.selectedCountry
   listAll: state.countryList
 });
-
-export default connect(mapStateToProps,null)(NewActivity);
+function mapDispatchToProps(dispatch){
+  return {
+    addActivity: (activity) => dispatch(addActivity(activity))}
+}
+export default connect(mapStateToProps,mapDispatchToProps)(NewActivity);

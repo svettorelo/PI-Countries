@@ -32,7 +32,9 @@ function rootReducer(state = initialState,action){
         countryList: action.payload
       }
     case 'ADD_ACTIVITY':
-      return {}
+      return {
+        ...state
+      }
     case 'ORDER?FILTER?':
       return {}
     default:

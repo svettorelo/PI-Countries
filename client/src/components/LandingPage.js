@@ -17,7 +17,7 @@ export function LandingPage(props){
         <strong>LET'S GO!</strong>
         </button>
       </Link><br/>
-      <img height={700} src="https://cdn.dribbble.com/users/1003234/screenshots/3931448/globe_animation.gif" alt="loading..."/>
+      <img width={900} src="https://cdn.dribbble.com/users/1003234/screenshots/3931448/globe_animation.gif" alt="loading..."/>
     </div>
       )
 }
