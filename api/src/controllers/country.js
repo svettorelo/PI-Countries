@@ -8,8 +8,7 @@ const {BASE_URL} = require('../constants');
 //     .then(response => {
 //       response.forEach(co => countries.push({
 //         name: co.name,flag: co.flag,continent: co.continent}));
-//       next(countries);
-//     })
+//       next(countries);})
 //     .catch(err=> {console.error(err);next(err);})}
 function compare( a, b ) {
   if ( a.name < b.name ) return -1;
@@ -17,31 +16,42 @@ function compare( a, b ) {
   return 0;
 }
 
-function CountryList(){
-  let listCountries = [];
-  return Country.findAll()
-    .then(response=>{
-      response.forEach( c => listCountries.push({name:c.name,id:c.id}));
-      return listCountries.sort(compare);
-    })
-}
-
-function GetCountries(page){
+function GetCountriesOrdered(order,param){
   let countries = [];
-  return Country.findAndCountAll({
-    limit: (page===0) ? 9 : 10,             //pagination
-    offset: (page===0) ? 0 : page*10-1
-  })
-    .then(response => {
-      response.rows.forEach(co => countries.push({
+  return Country.findAll({order:[[param,order]]})
+    .then(response=>{
+      response.forEach( co => countries.push({
         name: co.name,
         flag: co.flag,
         continent: co.continent,
-        id: co.id
-      }));
-      return {countries,total:response.count};
+        id: co.id}));
+      return countries;
     })
 }
+
+function GetCountries(){
+  let countries = [];
+   return Country.findAll()
+     .then(response => {
+       response.forEach(co => countries.push({
+                name: co.name,
+                flag: co.flag,
+                continent: co.continent,
+                id: co.id
+              }));
+              return countries;
+           })
+     }
+  // return Country.findAndCountAll({
+  //   limit: (page===0) ? 9 : 10,             //pagination
+  //   offset: (page===0) ? 0 : page*10-1
+  // })
+  //   .then(response => {
+  //     response.rows.forEach(co => countries.push({
+  //       name: co.name,flag: co.flag,continent: co.continent,id: co.id
+  //     }));
+  //     return {countries,total:response.count};
+  //   })
 
 function AddCountry(){
   axios.get(`${BASE_URL}`)
@@ -80,21 +90,22 @@ function GetCountryDetail(id){
 }
 
 function SearchCountries(name){
+  let countries = [];
   return Country.findAll({where:{name:{
         [Op.or]: {
+          [Op.like]: '%'+name+'%',
           [Op.iLike]:'%'+name,
           [Op.substring]: name,
           [Op.substring]: name[0].toUpperCase()+name.substring(1)
         }
   }}})
-    //.then(response=>response.length?response:'We\'re sorry, no matches were found for your search')
     .then(response => {
       if(response.length) {
-        return response.map(c => {
-          return {name: c.name,continent:c.continent,flag:c.flag,id:c.id}
-        })}
-      else return `We're sorry, no matches were found for your search`
+        response.forEach(c => countries.push({name: c.name, continent: c.continent, flag: c.flag, id: c.id}));
+        return countries;
+      }
+      else return {message: `We're sorry, no matches were found for your search`}
     })
 }
 
-module.exports = {AddCountry,GetCountries,GetCountryDetail,SearchCountries,CountryList}
+module.exports = {AddCountry,GetCountries,GetCountryDetail,SearchCountries,GetCountriesOrdered}

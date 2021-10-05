@@ -1,13 +1,12 @@
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
 import {connect} from "react-redux";
-import {getCountries, getCountryList} from "../actions";
+import {getCountries} from "../../actions";
 import "./LandingPage.css";
 
 export function LandingPage(props){
   useEffect(()=> {
-    props.getCountries(0);
-    props.getCountryList()
+    props.getCountries();
     },[]);
 
   return (
@@ -23,8 +22,7 @@ export function LandingPage(props){
 }
 function mapDispatchToProps(dispatch){
   return {
-    getCountries: (page)=>dispatch(getCountries(page)),
-    getCountryList: ()=>dispatch(getCountryList())
+    getCountries: ()=>dispatch(getCountries())
   };
 }
 export default connect(null,mapDispatchToProps)(LandingPage);

@@ -2,25 +2,29 @@ import {Link} from "react-router-dom";
 import './NewActivity.css'
 import {connect} from "react-redux";
 import {useState} from "react";
-import {addActivity} from "../actions";
-import axios from "axios";
+import {addActivity} from "../../actions";
+//import axios from "axios";
 
 export function NewActivity(props){
+  function compare(a,b) {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  }
   const [activity,setActivity] = useState({countryId:[]});
-  const selectList = props.listAll.map(country => <option name={country.id} value={country.id}>{country.name}</option>)
+  const {countries} = props
+  const selectList = countries.sort(compare).map(country => <option name={country.id} value={country.id}>{country.name}</option>)
 //const {name,difficulty,duration,season,countryId} = req.body;
 
   function changeValues(e){
     e.preventDefault();
     setActivity({...activity,[e.target.name]:e.target.value});
-    console.log(activity);
   }
   function postActivity(e){
     e.preventDefault();
-    console.log(activity);
-    axios.post('http://localhost:3001/activity',activity)
-      .then(result=>alert(result.data.message))
-    // props.addActivity(activity);
+    // axios.post('http://localhost:3001/activity',activity)
+    //   .then(result=>alert(result.data.message))
+    props.addActivity(activity);
   }
   return (
     <div>
@@ -64,7 +68,7 @@ export function NewActivity(props){
   )
 }
 const mapStateToProps = (state) => ({     //subscribe component to state.selectedCountry
-  listAll: state.countryList
+  countries: state.countries
 });
 function mapDispatchToProps(dispatch){
   return {

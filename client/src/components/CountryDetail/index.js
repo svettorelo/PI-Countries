@@ -1,7 +1,8 @@
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
-import {getCountryDetail,clearCountryDetail,getCountries} from "../actions";
+import './CountryDetail.css'
+import {getCountryDetail,clearCountryDetail,getCountries} from "../../actions";
 let i=1;
 
 export function CountryDetail(props){
@@ -25,16 +26,16 @@ const activities = country.activities.map(c=>{
   }
 
   return (
-    <div>
+    <div className="detail">
       <Link to="/home"><button onClick={exitCountryDetail}>Home</button></Link><br/>
       <h1>{country.name}</h1>
-      <img src={country.flag} height={200} width={250}/>
+      <img src={country.flag} height={200} width={250} alt="flag"/>
       <h4>CODE: {country.id}</h4>
-      <h3>Capital: {country.capital}</h3>
-      <h3>Subregion: {country.subregion}</h3>
-      <h3>Continent: {country.continent}</h3>
-      <h3>Area: {country.area} units?</h3>
-      <h3>Population: {country.population}</h3>
+      <span>Capital: {country.capital}</span>
+      <span>Subregion: {country.subregion}</span>
+      <span>Continent: {country.continent}</span>
+      <span>Area: {country.area} units?</span>
+      <span>Population: {country.population}</span>
       <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
       {activities}
     </div>

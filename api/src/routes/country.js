@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const router = Router();
-const {CountryList,GetCountries,GetCountryDetail,SearchCountries} = require('../controllers/country');
+const {GetCountriesOrdered,GetCountries,GetCountryDetail,SearchCountries} = require('../controllers/country');
 
 router.get('/:id',(req,res,next)=>{
   let {id}=req.params;
@@ -10,17 +10,17 @@ router.get('/:id',(req,res,next)=>{
 });
 
 router.get('/',(req,res,next)=>{
-    let {name,page,list} = req.query;
+    let {name,param,order} = req.query;
     if(name){
       SearchCountries(name)
-        .then(matches => res.json(matches))
+        .then(countries => res.json(countries))
         .catch(err => next(err));
-    } else if(list){
-      CountryList()
-        .then(list => res.json(list))
+    } else if(param&&order){
+      GetCountriesOrdered(order,param)
+        .then(countries => res.json(countries))
         .catch(err => next(err));
     } else {
-      GetCountries(page?parseInt(page):0)
+      GetCountries()
         .then(countries => res.json(countries))
         .catch(err => next(err));
     }

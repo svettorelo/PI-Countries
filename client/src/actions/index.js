@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {BASE_URL,ACTIVITY_URL} from '../constants';
 
-export function getCountries(page){
+export function getCountries(){
   return function (dispatch){
-    return axios.get(`${BASE_URL}/countries?page=${page}`)
+    return axios.get(`${BASE_URL}/countries`)
       .then(result => dispatch({
           type: 'GET_COUNTRIES',
           payload: result.data
@@ -21,11 +21,11 @@ export function getCountryDetail(id){
       )
   }
 }
-export function getCountryList(){
+export function getCountriesOrdered(order,param){
   return function (dispatch){
-    return axios.get(`${BASE_URL}/countries?list=1`)
+    return axios.get(`${BASE_URL}/countries?order=${order}&param=${param}`)
       .then(result => dispatch({
-          type: 'GET_COUNTRY_LIST',
+          type: 'GET_COUNTRIES_ORDERED',
           payload: result.data
         })
       )
@@ -43,13 +43,29 @@ export function clearCountryDetail(){
 export function searchCountry(name){
   return function (dispatch){
     return axios.get(`${BASE_URL}/countries?name=${name}`)
-      .then(result=> dispatch({
-          type: 'SEARCH_COUNTRY',
-          payload: result.data
-        })
+      .then(result => {
+        if(Array.isArray(result.data)) dispatch({
+            type: 'SEARCH_COUNTRY',
+            payload: result.data
+          });
+        else {
+          alert(result.data.message);
+          dispatch({type: 'SEARCH_COUNTRY',
+            payload:[]})
+        }
+        }
       )
   }
 }
 export function addActivity(activity){
-  axios.post(ACTIVITY_URL,activity)
-    .then(result=>alert(result.data.message))}
+  return function (dispatch){
+    return axios.post(ACTIVITY_URL,activity)
+      .then(result=> {
+        alert(result.data.message);
+        dispatch({
+          type: 'ADD_ACTIVITY',
+          payload: activity.name
+        })
+    })
+  }
+}
