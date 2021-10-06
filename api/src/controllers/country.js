@@ -1,6 +1,6 @@
 const {Country,Activity} = require('../db.js');
 const axios = require('axios');
-const {Op} = require('sequelize');
+const {Op, where} = require('sequelize');
 const {BASE_URL} = require('../constants');
 
 // function GetCountries(req,res,next){
@@ -10,11 +10,6 @@ const {BASE_URL} = require('../constants');
 //         name: co.name,flag: co.flag,continent: co.continent}));
 //       next(countries);})
 //     .catch(err=> {console.error(err);next(err);})}
-function compare( a, b ) {
-  if ( a.name < b.name ) return -1;
-  if ( a.name > b.name ) return 1;
-  return 0;
-}
 
 function GetCountriesOrdered(order,param){
   let countries = [];
@@ -39,9 +34,27 @@ function GetCountries(){
                 continent: co.continent,
                 id: co.id
               }));
-              return countries;
-           })
-     }
+       return countries;
+     })
+}
+function FilterCountries(filter){
+  let countries =[];
+  return Activity.findOne({
+    where:{name: filter},
+    include: [{
+      model: Country
+    }]
+  })
+    .then(response => {response.countries.forEach(co => countries.push({
+        name: co.name,
+        flag: co.flag,
+        continent: co.continent,
+        id: co.id
+      }));
+      return countries;}
+    )
+}
+
   // return Country.findAndCountAll({
   //   limit: (page===0) ? 9 : 10,             //pagination
   //   offset: (page===0) ? 0 : page*10-1
@@ -108,4 +121,4 @@ function SearchCountries(name){
     })
 }
 
-module.exports = {AddCountry,GetCountries,GetCountryDetail,SearchCountries,GetCountriesOrdered}
+module.exports = {AddCountry,GetCountries,GetCountryDetail,SearchCountries,GetCountriesOrdered,FilterCountries}

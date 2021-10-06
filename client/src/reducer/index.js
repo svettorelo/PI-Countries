@@ -3,7 +3,7 @@ const initialState = {
   selectedCountry:{activities:[]},
   currentPage:0,
   activityList:[],
-  searchResult:[]
+  resultCountries:[]
 }
 
 function rootReducer(state = initialState,action){
@@ -26,7 +26,7 @@ function rootReducer(state = initialState,action){
     case 'SEARCH_COUNTRY':
       return {
         ...state,
-        searchResult: action.payload
+        resultCountries: action.payload
       }
     case 'ADD_ACTIVITY':
       return {
@@ -36,12 +36,17 @@ function rootReducer(state = initialState,action){
     case 'GET_COUNTRIES_ORDERED':
       return {
         ...state,
-        countries: action.payload
+        resultCountries: action.payload
       }
-    case 'FILTER_COUNTRIES':
+    case 'FILTER_COUNTRY':
       return {
         ...state,
-        countries: action.payload
+        resultCountries: action.payload
+      }
+    case 'FRONT_FILTER':
+      return {
+        ...state,
+        resultCountries: state.countries.filter(c=>c.continent === action.payload)
       }
     default:
       return {

@@ -7,11 +7,11 @@ import {getCountries} from "../../actions";
 
 export function CountriesGrid(props){
   let i = 1;
-  let countriesToShow;
-  const {countries,searchResult} = props;
   const [page, setPage] = useState(0);
+  let countriesToShow;
+  const {resultCountries,countries} = props;
 
-  if(searchResult.length) countriesToShow = searchResult;
+  if(resultCountries.length) countriesToShow = resultCountries;
   else countriesToShow = countries;
 
   const total = countriesToShow.length;
@@ -51,7 +51,7 @@ export function CountriesGrid(props){
 
 const mapStateToProps = (state) => ({     //subscribe component to state.countries
   countries: state.countries,
-  searchResult: state.searchResult
+  resultCountries: state.resultCountries
 });
 function mapDispatchToProps(dispatch){
   return {

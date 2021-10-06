@@ -6,11 +6,11 @@ import {getCountryDetail,clearCountryDetail,getCountries} from "../../actions";
 let i=1;
 
 export function CountryDetail(props){
-const id = props.match.params.id;
-const {country} = props;
+const {id} = props.match.params;
+const {country,getCountryDetail} = props;
 
 useEffect(()=>{
-  props.getCountryDetail(id);
+  getCountryDetail(id);
   },[]);
 
 const activities = country.activities.map(c=>{
@@ -26,18 +26,24 @@ const activities = country.activities.map(c=>{
   }
 
   return (
-    <div className="detail">
-      <Link to="/home"><button onClick={exitCountryDetail}>Home</button></Link><br/>
-      <h1>{country.name}</h1>
-      <img src={country.flag} height={200} width={250} alt="flag"/>
-      <h4>CODE: {country.id}</h4>
-      <span>Capital: {country.capital}</span>
-      <span>Subregion: {country.subregion}</span>
-      <span>Continent: {country.continent}</span>
-      <span>Area: {country.area} units?</span>
-      <span>Population: {country.population}</span>
-      <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
-      {activities}
+    <div>
+      <Link to="/home">
+        <button className="homebutton" onClick={exitCountryDetail}>
+          <img title="Home" name="img" width={50} src='https://image.flaticon.com/icons/png/512/44/44748.png' alt='home'/>
+        </button>
+      </Link><br/>
+      <div className="detail">
+        <h1>{country.name}</h1>
+        <img src={country.flag} height={200} width={250} alt="flag"/>
+        <h4>CODE: {country.id}</h4>
+        <span>Capital: {country.capital}</span>
+        <span>Subregion: {country.subregion}</span>
+        <span>Continent: {country.continent}</span>
+        <span>Area: {country.area} units?</span>
+        <span>Population: {country.population}</span>
+        <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
+        {activities}
+      </div>
     </div>
   )
 }

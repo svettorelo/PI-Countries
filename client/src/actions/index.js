@@ -69,3 +69,18 @@ export function addActivity(activity){
     })
   }
 }
+export function filterCountry(activity){
+  return function (dispatch){
+    return axios.get(`${BASE_URL}/countries?filter=${activity}`)
+      .then(result => dispatch({
+          type: 'FILTER_COUNTRY',
+          payload: result.data
+        })
+      )
+  }
+}
+export function frontFilter(continent){
+  return function (dispatch){
+    return dispatch({type:'FRONT_FILTER',payload:continent})
+  }
+}

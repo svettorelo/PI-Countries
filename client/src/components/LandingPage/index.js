@@ -5,8 +5,11 @@ import {getCountries} from "../../actions";
 import "./LandingPage.css";
 
 export function LandingPage(props){
+  const {getCountries} = props;
+
   useEffect(()=> {
-    props.getCountries();
+    getCountries();
+//    getActivities();
     },[]);
 
   return (

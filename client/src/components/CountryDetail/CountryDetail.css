@@ -3,3 +3,8 @@
     flex-direction: column;
     align-items: center;
 }
+.homebutton{
+    background-color: #ffffff00;
+    border: none;
+    display: block;
+}
