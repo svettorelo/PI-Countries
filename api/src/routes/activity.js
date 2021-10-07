@@ -12,7 +12,7 @@ router.get('/',(req,res,next)=>{
 router.post('/',(req,res,next)=>{
   const {name,difficulty,duration,season,countryId} = req.body;
     AddNewActivity(name,difficulty,duration,season,countryId)
-      .then(() => res.json({message:'activity created!'}))
+      .then(() => res.json({message:'Activity created! 🎠🪂'}))
       .catch(err => next(err));
 });
 

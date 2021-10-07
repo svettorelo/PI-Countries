@@ -9,11 +9,10 @@ export function CountriesGrid(props){
   let i = 1;
   const [page, setPage] = useState(0);
   const {resultCountries,countries} = props;
-
   const countriesToShow = resultCountries.length? resultCountries:countries;
-
   const total = countriesToShow.length;
   const maxPage = Math.floor(total / 10);
+
 
   function nextPage() {
       setPage(page < maxPage ? page + 1 : page);

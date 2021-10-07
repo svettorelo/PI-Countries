@@ -11,7 +11,7 @@ export function NewActivity(props){
     if (a.name > b.name) return 1;
     return 0;
   }
-  const [activity,setActivity] = useState({countryId:[]});
+  const [activity,setActivity] = useState({season: '', countryId: [], name: '', duration: 0, difficulty: 1});
   const {countries} = props
   const seasons = ['summer','winter','spring','fall']
   const selectList = [...countries].sort(compare).map(country => <option key={country.id} name={country.id} value={country.id}>{country.name}</option>)
@@ -24,7 +24,9 @@ export function NewActivity(props){
   function postActivity(e){
     e.preventDefault();
     if(!seasons.includes(activity.season)) alert('Please write season name correctly')
-    if(activity.name!==''&&activity.duration>0) alert("Please complete all fields!");
+    else if(!((activity.name!=='')&&activity.duration>0)) {
+      alert("Please complete all fields!");
+    }
     else {
       props.addActivity(activity);
       setActivity({season: '', countryId: [], name: '', duration: 0, difficulty: 1}); //to clear all fields after submitting
@@ -39,9 +41,9 @@ export function NewActivity(props){
         <legend><h2>Add new activity</h2></legend>
       <form name={"actForm"} onSubmit={e=>postActivity(e)}  autoComplete="off">
         <label htmlFor="name">Activity name: </label>
-        <input name="name" type="text" defaultValue={''} value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
+        <input name="name" type="text" value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
         <label htmlFor="difficulty">Difficulty: </label>
-        <input className='difSelector' list="dif" name="difficulty" defaultValue={1} required={true} type="range" min="1" max="5" step="1" value={activity.difficulty} onChange={(e)=>changeValues(e)}/><br/>
+        <input className='difSelector' list="dif" name="difficulty" required={true} type="range" min="1" max="5" step="1" value={activity.difficulty} onChange={(e)=>changeValues(e)}/><br/>
         <datalist id="dif">
           <option value='1'/>
           <option value='2'/>
@@ -53,7 +55,7 @@ export function NewActivity(props){
         <label htmlFor="duration">Duration (hs): </label>
         <input type="number" name="duration" min="0" required={true} value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
         <label htmlFor="season">Season: </label>
-        <input list="seasons" required={true} name="season" defaultValue={''} value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
+        <input list="seasons" required={true} name="season" value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
             <datalist id="seasons">
               <option value="summer"/>
               <option value="fall"/>
