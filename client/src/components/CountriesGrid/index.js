@@ -3,19 +3,17 @@ import CountryCard from "../CountryCard";
 import {Link} from "react-router-dom";
 import "./CountriesGrid.css";
 import {useState} from "react";
-import {getCountries} from "../../actions";
 
 export function CountriesGrid(props){
+
   let i = 1;
   const [page, setPage] = useState(0);
-  let countriesToShow;
   const {resultCountries,countries} = props;
 
-  if(resultCountries.length) countriesToShow = resultCountries;
-  else countriesToShow = countries;
+  const countriesToShow = resultCountries.length? resultCountries:countries;
 
   const total = countriesToShow.length;
-  const maxPage = total / 10;
+  const maxPage = Math.floor(total / 10);
 
   function nextPage() {
       setPage(page < maxPage ? page + 1 : page);
@@ -30,7 +28,7 @@ export function CountriesGrid(props){
       return page >= maxPage ? ' ' : <button onClick={nextPage}>{'>>'}</button>
     }
 
-  let currentCountries = countriesToShow.slice(page * 10 === total ? total - 1 : page * 10, page === 0 ? 9 : page * 10 + 10);
+  const currentCountries = countriesToShow.slice(page * 10 === total ? total - 1 : page * 10, page === 0 ? 9 : page * 10 + 10);
 
   return (
     <div>
@@ -53,10 +51,5 @@ const mapStateToProps = (state) => ({     //subscribe component to state.countri
   countries: state.countries,
   resultCountries: state.resultCountries
 });
-function mapDispatchToProps(dispatch){
-  return {
-    getCountries: ()=>dispatch(getCountries())
-  }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CountriesGrid);
+export default connect(mapStateToProps,null)(CountriesGrid);

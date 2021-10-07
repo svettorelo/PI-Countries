@@ -2,8 +2,6 @@ const { Router } = require('express');
 // Importar todos los routers;
 const countryRouter = require('./country.js');
 const activityRouter = require('./activity.js');
-const {AddCountry} = require("../controllers/country");
-
 const router = Router();
 
 // Configurar los routers

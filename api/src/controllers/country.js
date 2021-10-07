@@ -121,4 +121,11 @@ function SearchCountries(name){
     })
 }
 
-module.exports = {AddCountry,GetCountries,GetCountryDetail,SearchCountries,GetCountriesOrdered,FilterCountries}
+module.exports = {
+  AddCountry,
+  GetCountries,
+  GetCountryDetail,
+  SearchCountries,
+  GetCountriesOrdered,
+  FilterCountries
+}

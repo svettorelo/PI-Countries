@@ -1,33 +1,33 @@
 import {Link} from "react-router-dom";
-import {useEffect} from "react";
-import {connect} from "react-redux";
-import {getCountries} from "../../actions";
 import "./LandingPage.css";
+import {useEffect} from "react";
+import {getActivities, getCountries} from "../../actions";
+import {connect} from "react-redux";
 
 export function LandingPage(props){
-  const {getCountries} = props;
-
-  useEffect(()=> {
+  const {getCountries,getActivities} = props;
+  useEffect(() => {
     getCountries();
-//    getActivities();
-    },[]);
-
+    getActivities();
+  },[]);
   return (
     <div className="landing">
       <Link to='/home'>
         <button>
-        <strong>LET'S GO!</strong>
+        <strong>LET'S GO! 	✈️</strong>
         </button>
       </Link><br/>
       <img width={900} src="https://cdn.dribbble.com/users/1003234/screenshots/3931448/globe_animation.gif" alt="loading..."/>
     </div>
-      )
+  )
 }
 function mapDispatchToProps(dispatch){
   return {
-    getCountries: ()=>dispatch(getCountries())
-  };
+    getCountries: ()=>dispatch(getCountries()),
+    getActivities: ()=>dispatch(getActivities())
+  }
 }
+
 export default connect(null,mapDispatchToProps)(LandingPage);
 //https://i.pinimg.com/originals/42/3e/75/423e752b884436e49d645763f6d784dc.jpg
 //https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v660-mon-35-travelbadge_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=488bb7bfaa372ea0c3758621f739347b

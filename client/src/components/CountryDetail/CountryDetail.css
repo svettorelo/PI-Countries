@@ -6,5 +6,16 @@
 .homebutton{
     background-color: #ffffff00;
     border: none;
-    display: block;
+    display: contents;
+}
+.activities{
+    display: flex;
+    flex-direction: row;
+
+}
+.activity{
+    text-align: -webkit-center;
+    border: 2px #607d8bad solid;
+    margin: 3px;
+    padding-inline: 18px;
 }

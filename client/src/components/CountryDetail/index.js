@@ -4,7 +4,12 @@ import {useEffect} from "react";
 import './CountryDetail.css'
 import {getCountryDetail,clearCountryDetail,getCountries} from "../../actions";
 let i=1;
-
+let icons = {
+  spring:'https://static.thenounproject.com/png/1258985-200.png',
+  winter: 'https://static.thenounproject.com/png/1764771-200.png',
+  fall: 'https://static.thenounproject.com/png/3676597-200.png',
+  summer:'https://static.thenounproject.com/png/461965-200.png'//2408381
+}
 export function CountryDetail(props){
 const {id} = props.match.params;
 const {country,getCountryDetail} = props;
@@ -14,22 +19,21 @@ useEffect(()=>{
   },[]);
 
 const activities = country.activities.map(c=>{
-  return (<div key={i++}>
+  return (<div className="activity" key={i++}>
     <h4>Name: {c.name}</h4>
-    <p>Season: {c.season}, duration {c.duration} hs, difficulty: {c.difficulty}</p>
+    <img  width={40} alt={'season'} src={icons[c.season]}/>
+      <p>Season: {c.season}</p>
+      <p>Duration {c.duration} hs</p>
+      <p>Difficulty: {c.difficulty}</p>
     </div>
   )
 })
-  function exitCountryDetail(){
-    props.clearCountryDetail();
-    props.getCountries(0); //goes to home page 0 AUNQUE DEBERIA IR A SU PAGINA ANTERIOR!
-  }
 
   return (
     <div>
       <Link to="/home">
-        <button className="homebutton" onClick={exitCountryDetail}>
-          <img title="Home" name="img" width={50} src='https://image.flaticon.com/icons/png/512/44/44748.png' alt='home'/>
+        <button className="homebutton" onClick={props.clearCountryDetail}>
+          <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
         </button>
       </Link><br/>
       <div className="detail">
@@ -42,7 +46,7 @@ const activities = country.activities.map(c=>{
         <span>Area: {country.area} units?</span>
         <span>Population: {country.population}</span>
         <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
-        {activities}
+        <div className="activities" >{activities}</div>
       </div>
     </div>
   )

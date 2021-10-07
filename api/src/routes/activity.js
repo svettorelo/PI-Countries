@@ -1,10 +1,12 @@
 const { Router } = require('express');
-const {AddNewActivity} = require('../controllers/activity')
+const {AddNewActivity, GetActivities} = require('../controllers/activity')
 
 const router = Router();
 
-router.get('/',(req,res)=>{
-  res.send(`route to show form to add new activity`);
+router.get('/',(req,res,next)=>{
+  GetActivities()
+    .then(activities => res.json(activities))
+    .catch(err => next(err));
 });
 
 router.post('/',(req,res,next)=>{

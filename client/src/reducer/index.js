@@ -13,6 +13,11 @@ function rootReducer(state = initialState,action){
         ...state,
         countries: action.payload
       }
+    case 'GET_ACTIVITIES':
+      return {
+        ...state,
+        activityList: action.payload
+      }
     case 'GET_COUNTRY_DETAIL':
       return {
         ...state,
@@ -28,6 +33,10 @@ function rootReducer(state = initialState,action){
         ...state,
         resultCountries: action.payload
       }
+    case 'CLEAR_RESULT_COUNTRY':return {
+      ...state,
+      resultCountries: action.payload
+    }
     case 'ADD_ACTIVITY':
       return {
         ...state,
@@ -46,7 +55,7 @@ function rootReducer(state = initialState,action){
     case 'FRONT_FILTER':
       return {
         ...state,
-        resultCountries: state.countries.filter(c=>c.continent === action.payload)
+        resultCountries: [...state.countries].filter(c => c.continent === action.payload)
       }
     default:
       return {

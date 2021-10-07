@@ -13,7 +13,8 @@ export function NewActivity(props){
   }
   const [activity,setActivity] = useState({countryId:[]});
   const {countries} = props
-  const selectList = countries.sort(compare).map(country => <option key={country.id} name={country.id} value={country.id}>{country.name}</option>)
+  const seasons = ['summer','winter','spring','fall']
+  const selectList = [...countries].sort(compare).map(country => <option key={country.id} name={country.id} value={country.id}>{country.name}</option>)
 //const {name,difficulty,duration,season,countryId} = req.body;
 
   function changeValues(e){
@@ -22,20 +23,23 @@ export function NewActivity(props){
   }
   function postActivity(e){
     e.preventDefault();
-    // axios.post('http://localhost:3001/activity',activity)
-    //   .then(result=>alert(result.data.message))
-    props.addActivity(activity);
+    if(!seasons.includes(activity.season)) alert('Please write season name correctly')
+    if(activity.name!==''&&activity.duration>0) alert("Please complete all fields!");
+    else {
+      props.addActivity(activity);
+      setActivity({season: '', countryId: [], name: '', duration: 0, difficulty: 1}); //to clear all fields after submitting
+    }
   }
   return (
     <div>
       <Link to="/home">
-      <img title="Home" name="img" width={50} src='https://image.flaticon.com/icons/png/512/44/44748.png' alt='home'/>
-      </Link><br/>
+      <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
+      </Link>Home<br/>
       <fieldset>
         <legend><h2>Add new activity</h2></legend>
-      <form onSubmit={e=>postActivity(e)}  autoComplete="off">
+      <form name={"actForm"} onSubmit={e=>postActivity(e)}  autoComplete="off">
         <label htmlFor="name">Activity name: </label>
-        <input name="name" type="text" value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
+        <input name="name" type="text" defaultValue={''} value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
         <label htmlFor="difficulty">Difficulty: </label>
         <input className='difSelector' list="dif" name="difficulty" defaultValue={1} required={true} type="range" min="1" max="5" step="1" value={activity.difficulty} onChange={(e)=>changeValues(e)}/><br/>
         <datalist id="dif">
@@ -49,16 +53,23 @@ export function NewActivity(props){
         <label htmlFor="duration">Duration (hs): </label>
         <input type="number" name="duration" min="0" required={true} value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
         <label htmlFor="season">Season: </label>
-          <input list="seasons" required={true} name="season" value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
+        <input list="seasons" required={true} name="season" defaultValue={''} value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
             <datalist id="seasons">
               <option value="summer"/>
               <option value="fall"/>
               <option value="winter"/>
               <option value="spring"/>
             </datalist>
+        {/*<select name="season" defaultValue={''} value={activity.season} onChange={(e)=>changeValues(e)}>*/}
+        {/*  <option key="SEASON" value="">SEASON</option>*/}
+        {/*  <option key="summer" value="summer">summer</option>*/}
+        {/*  <option key="fall" value="fall">fall</option>*/}
+        {/*  <option key="winter" value="winter">winter</option>*/}
+        {/*  <option key="spring" value="spring">spring</option>*/}
+        {/*</select >*/}
         <br/>
         <label htmlFor="countryId">Select countries related to this activity: </label><br/>
-        <select multiple id="countryId" required={true} value={activity.countryId} name="countryId" size="10" onChange={(e)=>{
+        <select multiple={true} id="countryId" required={true} value={activity.countryId} name="countryId" size="10" onChange={(e)=>{
           setActivity({...activity,countryId:Array.from(e.target.selectedOptions).map(el=>el.value)})
         }}>
           {selectList}
