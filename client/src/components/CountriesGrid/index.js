@@ -21,10 +21,10 @@ export function CountriesGrid(props){
       setPage(page > 0 ? page - 1 : page)
     }
   function buttonLeft() {
-      return page === 0 ? ' ' : <button onClick={previousPage}>{'<<'}</button>
+      return page === 0 ? ' ' : <button className="pageButton" onClick={previousPage}>{'<<'}</button>
     }
   function buttonRight() {
-      return page >= maxPage ? ' ' : <button onClick={nextPage}>{'>>'}</button>
+      return page >= maxPage ? ' ' : <button className="pageButton" onClick={nextPage}>{'>>'}</button>
     }
 
   const currentCountries = countriesToShow.slice(page * 10 === total ? total - 1 : page * 10, page === 0 ? 9 : page * 10 + 10);
@@ -41,7 +41,7 @@ export function CountriesGrid(props){
             </div>)
         })}
       </div>
-      {buttonLeft()} <strong> {page} </strong> {buttonRight()}
+      {buttonLeft()} <strong className="page"> {page} </strong> {buttonRight()}
     </div>
   )
 }

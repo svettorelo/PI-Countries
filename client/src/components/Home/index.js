@@ -4,7 +4,7 @@ import './Home.css'
 
 export default function Home(){
   return (
-    <div >
+    <div className="home">
       <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
       <label htmlFor="img">Home</label><br/>
       <NavBar className="bar"/>

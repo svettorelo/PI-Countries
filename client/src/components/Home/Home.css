@@ -1,9 +1,7 @@
-.cards{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+.home{
+    background: url("./city_2.jpg") no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 img,label{
     display: flex;

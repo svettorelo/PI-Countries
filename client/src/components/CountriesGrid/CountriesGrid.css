@@ -1,7 +1,17 @@
 .cards{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
+}
+.pageButton{
+    margin-top: 20px;
+    color: white;
+    background: grey;
+}
+.page{
+    color: white;
+    margin-left: 3px;
+    margin-right: 3px;
 }

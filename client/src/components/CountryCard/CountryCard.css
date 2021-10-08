@@ -2,7 +2,7 @@
     margin: 7px ;
     width: 250px;
     height: 250px;
-    border: 2px solid black;
-    border-radius: 5px;
-    text-align: -webkit-center;
+    border: 1px solid dimgray;
+   text-align: -webkit-center;
+    background: #adadad85;
 }

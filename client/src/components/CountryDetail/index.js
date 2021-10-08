@@ -16,7 +16,7 @@ const {country,getCountryDetail} = props;
 
 useEffect(()=>{
   getCountryDetail(id);
-  },[]);
+  },[getCountryDetail,id]);
 
 const activities = country.activities.map(c=>{
   return (<div className="activity" key={i++}>

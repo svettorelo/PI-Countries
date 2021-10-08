@@ -88,7 +88,7 @@ export function addActivity(activity){
 }
 export function filterCountry(activity){
   return function (dispatch){
-    return axios.get(`${COUNTRIES_URL}?filter=${activity}`)
+    axios.get(`${COUNTRIES_URL}?filter=${activity}`)
       .then(result => dispatch({
           type: 'FILTER_COUNTRY',
           payload: result.data
