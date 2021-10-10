@@ -30,7 +30,7 @@ export function CountriesGrid(props){
   const currentCountries = countriesToShow.slice(page * 10 === total ? total - 1 : page * 10, page === 0 ? 9 : page * 10 + 10);
 
   return (
-    <div>
+    <div className="grid">
       <div className="cards">
         {currentCountries.map(c => {
           return (
@@ -41,7 +41,7 @@ export function CountriesGrid(props){
             </div>)
         })}
       </div>
-      {buttonLeft()} <strong className="page"> {page} </strong> {buttonRight()}
+      <div className="buttons">{buttonLeft()} <strong className="page"> {page} </strong> {buttonRight()}</div>
     </div>
   )
 }
