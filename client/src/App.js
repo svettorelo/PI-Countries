@@ -6,8 +6,12 @@ import CountryDetail from './components/CountryDetail';
 import LandingPage from './components/LandingPage'
 import NewActivity from "./components/NewActivity";
 
+import store from "./store";
+import {Provider} from 'react-redux';
+
 export default function App() {
   return (
+    // <Provider store={store}>
     <BrowserRouter>
       <div className="App">
         <Route exact path="/" component={LandingPage}/>
@@ -16,13 +20,6 @@ export default function App() {
         <Route exact path="/country/:id" component={CountryDetail}/>
       </div>
     </BrowserRouter>
+  // </Provider>
   );
 }
-
-// const mapStateToProps = (state) => ({     //subscribe component to state.selectedCountry
-//   countries: state.countries
-// })
-// function mapDispatchToProps(dispatch){
-//   return bindActionCreators(getCountries,dispatch);
-// }
-// export default connect(mapStateToProps,mapDispatchToProps)(App);

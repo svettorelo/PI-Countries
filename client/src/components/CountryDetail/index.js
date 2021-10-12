@@ -20,34 +20,39 @@ useEffect(()=>{
 
 const activities = country.activities.map(c=>{
   return (<div className="activity" key={i++}>
-    <h4>Name: {c.name}</h4>
+      <p><strong><big>{c.name}</big></strong></p>
     <img  width={40} alt={'season'} src={icons[c.season]}/>
       <p>Season: {c.season}</p>
-      <p>Duration {c.duration} hs</p>
+      <p>Duration: {c.duration} hs</p>
       <p>Difficulty: {c.difficulty}</p>
     </div>
   )
 })
 
   return (
-    <div>
+    <div className="back">
       <Link to="/home">
         <button className="homebutton" onClick={props.clearCountryDetail}>
           <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
         </button>
       </Link><br/>
       <div className="detail">
-        <h1>{country.name}</h1>
-        <img src={country.flag} height={200} width={250} alt="flag"/>
-        <h4>CODE: {country.id}</h4>
-        <span>Capital: {country.capital}</span>
-        <span>Subregion: {country.subregion}</span>
-        <span>Continent: {country.continent}</span>
-        <span>Area: {country.area} km<sup>2</sup></span>
-        <span>Population: {country.population}</span>
-        <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
-        <div className="activities" >{activities}</div>
+        <div className="description">
+          <h1>{country.name}</h1>
+          <img src={country.flag} height={200} width={280} alt="flag"/>
+          <h4>Code: {country.id}</h4>
+        </div>
+        <div className="description">
+          <p><strong>Capital: </strong>{country.capital}</p>
+          <p><strong>Subregion: </strong>{country.subregion}</p>
+          <p><strong>Continent: </strong>{country.continent}</p>
+          <p><strong>Area: </strong>{country.area} km<sup>2</sup></p>
+          <p><strong>Population: </strong>{country.population}</p>
+        </div>
       </div>
+        <h3 className="actTitle">Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
+        <div className="activities" >{activities}</div>
+
     </div>
   )
 }

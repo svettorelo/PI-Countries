@@ -1,6 +1,27 @@
 .bar{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
+    align-items: flex-end;
+}
+.bar1{
+    margin-right: 20px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+}
+.bar2{
+    margin-right: 20px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+.bar1Img{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.selForm{
+    margin-inline: 20px;
 }

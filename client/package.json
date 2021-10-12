@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "expect": "^27.2.5"
   }
 }

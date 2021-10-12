@@ -16,7 +16,7 @@ describe('reducer', ()=> {
     expect(rootReducer(undefined, [])).toEqual(initialState);
   });
   it('it should set the page number to the value sent as payload', () => {
-    expect(rootReducer(undefined, setPage(4))).toEqual({
+    expect(rootReducer(initialState, setPage(4))).toEqual({
       ...initialState,
       currentPage: 4
     });

@@ -95,33 +95,36 @@ export function NavBar(props){
 
     return (
     <div className="bar">
-      <Link to="/activity">
-      <button>NEW ACTIVITY 🗺️</button>
-      </Link>
-      <form id={'search'} onSubmit={(e)=>handleSearch(e)}>
-        <input autoComplete="off" type="search" value={searchValue} onChange={e=>setSearchValue(e.target.value)}/>
-        <input type="submit" value="SEARCH 🔍"/>
-
-      </form>
-      {/*<form id="order" >*/}
-      <select id="order" value={orderValue} onChange={(e)=>handleOrder(e)}>
-        <option value="none">ORDER  </option>
-        <option value="abc"> A ► Z </option>
-        <option value="zyx"> Z ► A </option>
-        <option value="pAsc"> Population ▲ </option>
-        <option value="pDesc"> Population ▼ </option>
-      </select>
-      {/*</form>*/}
-      FILTER >>
-      <select id="frontFilter" value={frontFilterValue} onChange={(e)=>handleFrontFilter(e)}>
-        <option value="">CONTINENT</option>
-        {continentOptions}
-      </select>
-      <select id="contFilter" onChange={(e)=>handleFilter(e)} value={filterValue}>
-        <option value="">ACTIVITY</option>
-        {activitiesOptions}
-      </select>
-      <button onClick={e => handleClear(e)}>CLEAR ❌</button>
+      <div className="bar1">
+        <img className="bar1Img" title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png'  onClick={handleClear} alt='home'/>
+        {/*<form id="order" >*/}
+        <Link  to="/activity">
+          <button className="selForm">NEW ACTIVITY 🗺️</button>
+        </Link>
+        <form id={'search'} onSubmit={(e)=>handleSearch(e)}>
+          <input autoComplete="off" type="search" value={searchValue} onChange={e=>setSearchValue(e.target.value)}/>
+          <input type="submit" value="SEARCH 🔍"/>
+        </form>
+      </div>
+      <div className="bar2">
+        <select className="selForm" id="order" value={orderValue} onChange={(e)=>handleOrder(e)}>
+          <option value="none">ORDER  </option>
+          <option value="abc"> A ► Z </option>
+          <option value="zyx"> Z ► A </option>
+          <option value="pAsc"> Population ▲ </option>
+          <option value="pDesc"> Population ▼ </option>
+        </select>
+        {/*</form>*/}
+        <select id="frontFilter" value={frontFilterValue} onChange={(e)=>handleFrontFilter(e)}>
+          <option value="">CONTINENT</option>
+          {continentOptions}
+        </select>
+        <select className="selForm" id="contFilter" onChange={(e)=>handleFilter(e)} value={filterValue}>
+          <option value="">ACTIVITY</option>
+          {activitiesOptions}
+        </select>
+        <button onClick={e => handleClear(e)}>CLEAR ❌</button>
+      </div>
     </div>
   )
 }

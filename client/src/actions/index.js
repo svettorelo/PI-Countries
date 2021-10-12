@@ -135,6 +135,8 @@ export function frontOrder(parameters){
           return 0;
         }}
         )}
+    default:
+      break;
 }}
 export function setPage(newPage){
   return function (dispatch){
