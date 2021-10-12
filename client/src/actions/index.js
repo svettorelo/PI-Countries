@@ -101,3 +101,46 @@ export function frontFilter(continent){
     dispatch({type:'FRONT_FILTER',payload:continent})
   }
 }
+export function frontOrder(parameters){
+  switch(parameters){
+    case 'abc':
+      return function (dispatch){
+        dispatch({type:'FRONT_ORDER', payload:function (a,b){
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
+            return 0;
+          }
+        })
+      }
+    case 'zyx':
+      return function (dispatch){
+        dispatch({type:'FRONT_ORDER',payload:function (a,b){
+            if(a.name > b.name) return -1;
+            if(a.name < b.name) return 1;
+            return 0;
+          }}
+        )}
+    case 'pAsc':
+      return function (dispatch){
+        dispatch({type:'FRONT_ORDER',payload:function (a,b){
+          if(a.population < b.population) return -1;
+          if(a.population > b.population) return 1;
+          return 0;}}
+        )}
+    case 'pDesc':
+      return function (dispatch){
+        dispatch({type:'FRONT_ORDER',payload:function (a,b){
+          if(a.population > b.population) return -1;
+          if(a.population < b.population) return 1;
+          return 0;
+        }}
+        )}
+}}
+export function setPage(newPage){
+  return function (dispatch){
+    dispatch({
+      type: 'SET_PAGE',
+      payload:newPage
+    })
+  }
+}

@@ -32,13 +32,23 @@ describe('Country routes', () => {
     it('should get an array of the created countries', () =>
       agent.get('/countries')
       .then(response => {
-        expect(response.body.length).to.be.equal(3);
-        expect(response.body[0].name).to.be.equal('Argentina');
-        expect(response.body[1].id).to.be.equal('NOR');
-        expect(response.body[2].continent).to.be.equal('America');
+        expect(response.body.length).to.equal(3);
+        expect(response.body[0].name).to.exist;
+        expect(response.body[1].id).to.exist;
+        expect(response.body[2].continent).to.exist;
       })
       .catch((err) => {console.log('Error: ',err)})
     );
+    it('should filter countries by activity sent by query',()=>{
+      before(() =>Country.sync({ force: true })
+        .then(() => countries.forEach(c => Country.create(c)))
+        .then(() => agent.post('/activity').send(activity1)))
+        agent.get('/countries?filter='+activity1.name)
+        .then(response => {
+          //console.log('b',response.body)
+          expect(response.body.length).to.equal(2)
+        })
+    })
   });
 });
 describe('Activity routes', () => {
@@ -54,17 +64,21 @@ describe('Activity routes', () => {
       agent.get('/activity').expect(200)
     );
   });
-  
   describe('POST /activity', () => {
     it('should post an activity and get 200', () =>
       agent.post('/activity').send(activity1)
       .then((r)=> expect(r.status).to.equal(200))
     );
-    it('should get list of activities created', () =>
+    it('should get a list of activities created', () =>
       agent.post('/activity').send(activity1)
       .then(() => agent.post('/activity').send(activity2))
       .then(()=>agent.get('/activity'))
-      .then(re => expect(re.body.length).to.equal(2))
+      .then(re => {
+        expect(re.body.length).to.equal(2);
+        expect(re.body[0]).to.equal(activity1.name);
+        expect(re.body[1]).to.equal(activity2.name);
+      })
     );
   });
+
 });

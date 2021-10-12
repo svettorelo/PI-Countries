@@ -19,7 +19,8 @@ function GetCountriesOrdered(order,param){
         name: co.name,
         flag: co.flag,
         continent: co.continent,
-        id: co.id}));
+        id: co.id,
+        population: co.population}));
       return countries;
     })
 }
@@ -32,7 +33,8 @@ function GetCountries(){
                 name: co.name,
                 flag: co.flag,
                 continent: co.continent,
-                id: co.id
+                id: co.id,
+                population: co.population
               }));
        return countries;
      })
@@ -49,7 +51,8 @@ function FilterCountries(filter){
         name: co.name,
         flag: co.flag,
         continent: co.continent,
-        id: co.id
+        id: co.id,
+        population: co.population
       }));
       return countries;}
     )
@@ -114,7 +117,7 @@ function SearchCountries(name){
   }}})
     .then(response => {
       if(response.length) {
-        response.forEach(c => countries.push({name: c.name, continent: c.continent, flag: c.flag, id: c.id}));
+        response.forEach(c => countries.push({name: c.name, continent: c.continent, flag: c.flag, id: c.id,population: c.population}));
         return countries;
       }
       else return {message: `We're sorry, no matches were found for your search`}

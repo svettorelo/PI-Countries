@@ -6,7 +6,8 @@ import {
   getCountriesOrdered,
   filterCountry,
   frontFilter,
-  clearResultCountries
+  clearResultCountries,
+  frontOrder, setPage
 } from "../../actions";
 import {useState} from "react";
 import './NavBar.css'
@@ -18,7 +19,7 @@ export function NavBar(props){
   const [filterValue,setFilterValue]= useState('');
   const [frontFilterValue,setFrontFilterValue]= useState('');
 
-  const {activityList,countries,resultCountries} = props;
+  const {activityList,countries,resultCountries,setPage} = props;
   const activitiesOptions = activityList.map(act=><option key={act} name={act} value={act}>{act}</option>);
   let con=[];
   const continentOptions = [...countries].sort(compare)
@@ -35,36 +36,43 @@ export function NavBar(props){
     setOrderValue('');
     setFilterValue('');
     setFrontFilterValue('');
+    setPage(1);
     props.searchCountry(searchValue);
     if(!resultCountries.length) setSearchValue('');
   }
   function handleOrder(ev){
     ev.preventDefault();
-    setFilterValue('');
-    setFrontFilterValue('');
-    setOrderValue(ev.target.value);
-    switch (ev.target.value){
-      case 'abc':
-        props.getCountriesOrdered('ASC','name');
-        break;
-      case 'zyx':
-        props.getCountriesOrdered('DESC','name');
-        break;
-      case 'pAsc':
-        props.getCountriesOrdered('ASC','population');
-        break;
-      case 'pDesc':
-        props.getCountriesOrdered('DESC','population');
-        break;
-      default:
-        props.getCountries();
+    // setFilterValue('');
+    // setFrontFilterValue('');
+    if(ev.target.value==='none') return undefined;
+    else{  setOrderValue(ev.target.value);
+    setPage(1);
+    if(resultCountries.length) props.frontOrder(ev.target.value);
+    else {
+      switch (ev.target.value){
+        case 'abc':
+          props.getCountriesOrdered('ASC','name');
+          break;
+        case 'zyx':
+          props.getCountriesOrdered('DESC','name');
+          break;
+        case 'pAsc':
+          props.getCountriesOrdered('ASC','population');
+          break;
+        case 'pDesc':
+          props.getCountriesOrdered('DESC','population');
+          break;
+        default:
+          break;
+      }
     }
-  }
+  }}
   function handleFilter(ev){
     ev.preventDefault();
     setOrderValue('');
     setFrontFilterValue('');
     setFilterValue(ev.target.value);
+    setPage(1);
     props.filterCountry(ev.target.value);
   }
   function handleFrontFilter(ev){
@@ -72,6 +80,7 @@ export function NavBar(props){
     setFilterValue('');
     setOrderValue('');
     setFrontFilterValue(ev.target.value);
+    setPage(1);
     props.frontFilter(ev.target.value);
   }
   function handleClear(ev){
@@ -80,6 +89,7 @@ export function NavBar(props){
     setFilterValue('');
     setFrontFilterValue('');
     setSearchValue('');
+    setPage(1);
     props.clearResultCountries();
   }
 
@@ -95,7 +105,7 @@ export function NavBar(props){
       </form>
       {/*<form id="order" >*/}
       <select id="order" value={orderValue} onChange={(e)=>handleOrder(e)}>
-        <option value="">ORDER  </option>
+        <option value="none">ORDER  </option>
         <option value="abc"> A ► Z </option>
         <option value="zyx"> Z ► A </option>
         <option value="pAsc"> Population ▲ </option>
@@ -127,7 +137,9 @@ function mapDispatchToProps(dispatch){
       getCountriesOrdered: (order,param)=>dispatch(getCountriesOrdered(order,param)),
       filterCountry: (activityName)=>dispatch(filterCountry(activityName)),
       frontFilter: (continent)=> dispatch(frontFilter(continent)),
-      clearResultCountries: ()=>dispatch(clearResultCountries())
+      clearResultCountries: () => dispatch(clearResultCountries()),
+      frontOrder: (param) => dispatch(frontOrder(param)),
+      setPage: (pageNumber) => dispatch(setPage(pageNumber))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

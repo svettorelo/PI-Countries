@@ -1,7 +1,7 @@
 const initialState = {
   countries: [],
   selectedCountry:{activities:[]},
-  currentPage:0,
+  currentPage:1,
   activityList:[],
   resultCountries:[]
 }
@@ -33,7 +33,8 @@ function rootReducer(state = initialState,action){
         ...state,
         resultCountries: action.payload
       }
-    case 'CLEAR_RESULT_COUNTRY':return {
+    case 'CLEAR_RESULT_COUNTRY':
+      return {
       ...state,
       resultCountries: action.payload
     }
@@ -56,6 +57,16 @@ function rootReducer(state = initialState,action){
       return {
         ...state,
         resultCountries: [...state.countries].filter(c => c.continent === action.payload)
+      }
+    case 'FRONT_ORDER':
+      return {
+        ...state,
+        resultCountries: [...state.resultCountries].sort(action.payload)
+      }
+    case 'SET_PAGE':
+      return {
+        ...state,
+        currentPage: action.payload
       }
     default:
       return {

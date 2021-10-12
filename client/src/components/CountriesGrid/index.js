@@ -2,32 +2,32 @@ import {connect} from 'react-redux'
 import CountryCard from "../CountryCard";
 import {Link} from "react-router-dom";
 import "./CountriesGrid.css";
-import {useState} from "react";
+import {setPage} from "../../actions";
+import {useEffect} from "react";
 
 export function CountriesGrid(props){
 
   let i = 1;
-  const [page, setPage] = useState(0);
-  const {resultCountries,countries} = props;
-  const countriesToShow = resultCountries.length? resultCountries:countries;
+  const {resultCountries,countries,currentPage,setPage} = props;
+  const countriesToShow = resultCountries.length? resultCountries : countries;
   const total = countriesToShow.length;
-  const maxPage = Math.floor(total / 10);
-
+  const maxPage = Math.floor(total/10) + 1;
+ // useEffect(()=>setPage(1),[resultCountries]);
 
   function nextPage() {
-      setPage(page < maxPage ? page + 1 : page);
+      setPage(currentPage < maxPage ? currentPage + 1 : currentPage);
     }
   function previousPage() {
-      setPage(page > 0 ? page - 1 : page)
+      setPage(currentPage > 1 ? currentPage - 1 : currentPage)
     }
   function buttonLeft() {
-      return page === 0 ? ' ' : <button className="pageButton" onClick={previousPage}>{'<<'}</button>
+      return currentPage === 1 ? ' ' : <button className="pageButton" onClick={previousPage}>{'<<'}</button>
     }
   function buttonRight() {
-      return page >= maxPage ? ' ' : <button className="pageButton" onClick={nextPage}>{'>>'}</button>
+      return currentPage === maxPage ? ' ' : <button className="pageButton" onClick={nextPage}>{'>>'}</button>
     }
 
-  const currentCountries = countriesToShow.slice(page * 10 === total ? total - 1 : page * 10, page === 0 ? 9 : page * 10 + 10);
+  const currentCountries = countriesToShow.slice(currentPage === 1 ? 0 : currentPage * 10-11, currentPage*10 - 1);
 
   return (
     <div className="grid">
@@ -41,14 +41,20 @@ export function CountriesGrid(props){
             </div>)
         })}
       </div>
-      <div className="buttons">{buttonLeft()} <strong className="page"> {page} </strong> {buttonRight()}</div>
+      <div className="buttons">{buttonLeft()} <strong className="page"> {currentPage} </strong> {buttonRight()}</div>
     </div>
   )
 }
 
-const mapStateToProps = (state) => ({     //subscribe component to state.countries
+const mapStateToProps = (state) => ({     //subscribe component to state
   countries: state.countries,
-  resultCountries: state.resultCountries
+  resultCountries: state.resultCountries,
+  currentPage: state.currentPage
 });
+function mapDispatchToProps(dispatch){
+  return {
+    setPage: (newPage) => dispatch(setPage(newPage))
+  }
+}
 
-export default connect(mapStateToProps,null)(CountriesGrid);
+export default connect(mapStateToProps,mapDispatchToProps)(CountriesGrid);

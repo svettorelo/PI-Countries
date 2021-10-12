@@ -7,7 +7,6 @@ import LandingPage from './components/LandingPage'
 import NewActivity from "./components/NewActivity";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <div className="App">

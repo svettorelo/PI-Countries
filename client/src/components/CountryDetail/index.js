@@ -43,7 +43,7 @@ const activities = country.activities.map(c=>{
         <span>Capital: {country.capital}</span>
         <span>Subregion: {country.subregion}</span>
         <span>Continent: {country.continent}</span>
-        <span>Area: {country.area} units?</span>
+        <span>Area: {country.area} km<sup>2</sup></span>
         <span>Population: {country.population}</span>
         <h3>Activities: {country.activities.length? null :'this country has no activities associated yet'}</h3>
         <div className="activities" >{activities}</div>

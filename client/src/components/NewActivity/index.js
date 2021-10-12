@@ -6,6 +6,8 @@ import {addActivity} from "../../actions";
 //import axios from "axios";
 
 export function NewActivity(props){
+  let num = Date()[20];  //to change the background photo every minute
+
   function compare(a,b) {
     if (a.name < b.name) return -1;
     if (a.name > b.name) return 1;
@@ -24,7 +26,7 @@ export function NewActivity(props){
   function postActivity(e){
     e.preventDefault();
     if(!seasons.includes(activity.season)) alert('Please write season name correctly')
-    else if(activity.name===''||activity.duration<=0||activity.difficulty===0||!activity.countryId.length) {
+    else if(activity.name===''||activity.duration<=0||activity.difficulty<1||!activity.countryId.length) {
       alert("Please complete all fields!");
     } else {
       props.addActivity(activity);
@@ -32,36 +34,40 @@ export function NewActivity(props){
     }
   }
   return (
-    <div>
+    <div className={"back"+num}>
       <Link to="/home">
       <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
-      </Link>Home<br/>
+      </Link><br/>
       <fieldset>
-        <legend><h2>Add new activity</h2></legend>
-      <form name={"actForm"} onSubmit={e=>postActivity(e)}  autoComplete="off">
-        <label htmlFor="name">Activity name: </label>
-        <input name="name" type="text" value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
-        <label htmlFor="difficulty">Difficulty: </label>
-        <input className='difSelector' list="dif" name="difficulty" required={true} type="range" min="0" max="5" step="1" value={activity.difficulty} onChange={(e)=>changeValues(e)}/><br/>
-        <datalist id="dif">
-          <option value='0'/>
-          <option value='1'/>
-          <option value='2'/>
-          <option value='3'/>
-          <option value='4'/>
-          <option value='5'/>
+        <legend><h2>Add new activity:</h2></legend>
+        <form name={"actForm"} onSubmit={e=>postActivity(e)}  autoComplete="off">
+          <div className="inputs">
+            <label htmlFor="name">Activity name: </label>
+            <input name="name" type="text" value={activity.name} onChange={(e)=>changeValues(e)} required={true}/><br/>
+        </div>
+        <div className="inputs">
+          <label htmlFor="difficulty">Difficulty: </label>
+          <input list="dif" name="difficulty" required={true} type="range" min="0" max="5" step="1" value={activity.difficulty} onChange={(e)=>changeValues(e)}/><br/>
+          <h4 className={activity.difficulty<1?'incomplete':'complete'}> {activity.difficulty} </h4>
+          <datalist id="dif">
+          <option value='0'/><option value='1'/><option value='2'/><option value='3'/><option value='4'/><option value='5'/>
         </datalist>
-        <div> _0___1___2___3___4___5_</div>
-        <label htmlFor="duration">Duration (hs): </label>
-        <input type="number" name="duration" min="0" required={true} value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
-        <label htmlFor="season">Season: </label>
-        <input list="seasons" required={true} name="season" value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
-            <datalist id="seasons">
-              <option value="summer"/>
-              <option value="fall"/>
-              <option value="winter"/>
-              <option value="spring"/>
-            </datalist>
+        </div>
+        <div  className="inputs" >
+          <label htmlFor="duration">Duration (hs): </label>
+          <input type="number" name="duration" min="0" required={true} value={activity.duration} onChange={(e)=>changeValues(e)}/><br/>
+        </div><br/>
+        <div className="inputs">
+          <label htmlFor="season">Season: </label>
+          <input list="seasons" required={true} name="season" value={activity.season} onChange={(e)=>changeValues(e)}/> <br/>
+          <datalist id="seasons">
+            <option value="summer"/>
+            <option value="fall"/>
+            <option value="winter"/>
+            <option value="spring"/>
+          </datalist>
+        </div>
+
         {/*<select name="season" defaultValue={''} value={activity.season} onChange={(e)=>changeValues(e)}>*/}
         {/*  <option key="SEASON" value="">SEASON</option>*/}
         {/*  <option key="summer" value="summer">summer</option>*/}
@@ -76,7 +82,7 @@ export function NewActivity(props){
         }}>
           {selectList}
         </select><br/>
-        <input type="submit" />
+        <input type="submit" value="Create !"/>
       </form>
       </fieldset>
     </div>
