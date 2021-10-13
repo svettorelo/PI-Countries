@@ -9,7 +9,6 @@
     margin-top: 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
 .bar2{
     margin-right: 20px;
@@ -21,6 +20,11 @@
     position: absolute;
     left: 0;
     top: 0;
+}
+.bar1Img:hover{
+    filter: invert(100%);
+    background: orangered;
+    border-radius: 25px;
 }
 .selForm{
     margin-inline: 20px;

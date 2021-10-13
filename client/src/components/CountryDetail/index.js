@@ -33,12 +33,15 @@ const activities = country.activities.map(c=>{
     <div className="back">
       <Link to="/home">
         <button className="homebutton" onClick={props.clearCountryDetail}>
-          <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
+          <img className="homeImg" title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
         </button>
       </Link><br/>
+      <div>
+        <h1 className="countryTitle">{country.name}</h1>
+      </div>
       <div className="detail">
         <div className="description">
-          <h1>{country.name}</h1>
+          <br/>
           <img src={country.flag} height={200} width={280} alt="flag"/>
           <h4>Code: {country.id}</h4>
         </div>

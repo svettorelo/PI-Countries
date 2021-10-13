@@ -42,8 +42,6 @@ export function NavBar(props){
   }
   function handleOrder(ev){
     ev.preventDefault();
-    // setFilterValue('');
-    // setFrontFilterValue('');
     if(ev.target.value==='none') return undefined;
     else{  setOrderValue(ev.target.value);
     setPage(1);

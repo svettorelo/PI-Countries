@@ -2,6 +2,7 @@
     margin-top: 20px;
     margin-right: 20px;
     margin-left: 20px;
+    padding-bottom: 20px;
 }
 .cards{
     display: flex;
@@ -9,11 +10,11 @@
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 .pageButton{
-    margin-top: 20px;
     color: white;
-    background: grey;
+    background: dimgray;
     margin: 5px;
 }
 .page{
@@ -22,10 +23,15 @@
     margin-right: 5px;
 }
 .buttons{
+    margin-top: 20px;
     position: fixed;
+    width: 500px;
     bottom: 20px;
-    right: 50%;
+    left: 50%;
+    margin-left: -250px;
     display: flex;
     flex-direction: row;
     align-items: baseline;
+    background: #bd5c50;
+    justify-content: space-evenly;
 }

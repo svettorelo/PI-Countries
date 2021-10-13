@@ -36,7 +36,7 @@ export function NewActivity(props){
   return (
     <div className={"back"+num}>
       <Link to="/home">
-      <img title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
+      <img className="homeB" title="Home" name="img" width={50} src='https://static.thenounproject.com/png/2002086-200.png' alt='home'/>
       </Link><br/>
       <fieldset>
         <legend><h2>Add new activity:</h2></legend>

@@ -12,6 +12,10 @@
     text-shadow: 3px 1px grey;
     color: whitesmoke;
     text-decoration-line: none;
+
+}
+h3{
+    padding-inline: 2px;
 }
 .flag{
     border-radius: 10px 2px;

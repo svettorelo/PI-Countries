@@ -1,7 +1,8 @@
-.home{
-    background: url("./city_0.jpg") no-repeat;
+body{
+    background-attachment: fixed;
     background-size: cover;
-    height: 100vh;
+    background-image: url("./city_0.jpg");
+    font-family: "Bahnschrift",Helvetica, sans-serif;
 }
 img,label{
     display: flex;

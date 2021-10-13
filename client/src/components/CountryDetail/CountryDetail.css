@@ -3,6 +3,9 @@
     background-size: cover;
     height: 100vh;
 }
+.countryTitle{
+    margin-bottom: 2px;
+}
 .detail{
     background: #adadadd1;
     display: flex;
@@ -20,6 +23,11 @@
     background-color: #ffffff00;
     border: none;
     display: contents;
+}
+.homeImg:hover{
+    filter: invert(100%);
+    background: orangered;
+    border-radius: 25px;
 }
 .activities{
     display: flex;
