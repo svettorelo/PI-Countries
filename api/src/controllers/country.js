@@ -107,6 +107,7 @@ function GetCountryDetail(id){
 
 function SearchCountries(name){
   let countries = [];
+  name = name.toLowerCase();
   return Country.findAll({where:{name:{
         [Op.or]: {
           [Op.like]: '%'+name+'%',

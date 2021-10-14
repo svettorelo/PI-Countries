@@ -9,6 +9,7 @@ export function LandingPage(props){
   useEffect(() => {
     getCountries();
     getActivities();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   return (
     <div className="landing" >
@@ -20,7 +21,7 @@ export function LandingPage(props){
     </div>
   )
 }
-//<img height="200" src="./countries.png" alt="countries.png"/>
+
 function mapDispatchToProps(dispatch){
   return {
     getCountries: ()=>dispatch(getCountries()),

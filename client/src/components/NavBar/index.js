@@ -7,12 +7,18 @@ import {
   filterCountry,
   frontFilter,
   clearResultCountries,
-  frontOrder, setPage
+  frontOrder, setPage, getActivities
 } from "../../actions";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import './NavBar.css'
 
 export function NavBar(props){
+
+  useEffect(() => {
+    props.getCountries();
+    props.getActivities();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const [searchValue,setSearchValue]= useState('');
   const [orderValue,setOrderValue]= useState('');
@@ -126,7 +132,7 @@ export function NavBar(props){
     </div>
   )
 }
-const mapStateToProps = (state) => ({     //subscribe component to state.searchResult
+const mapStateToProps = (state) => ({     //subscribe component to state
   resultCountries: state.resultCountries,
   activityList: state.activityList,
   countries: state.countries
@@ -140,7 +146,8 @@ function mapDispatchToProps(dispatch){
       frontFilter: (continent)=> dispatch(frontFilter(continent)),
       clearResultCountries: () => dispatch(clearResultCountries()),
       frontOrder: (param) => dispatch(frontOrder(param)),
-      setPage: (pageNumber) => dispatch(setPage(pageNumber))
+      setPage: (pageNumber) => dispatch(setPage(pageNumber)),
+      getActivities: () => dispatch(getActivities())
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(NavBar);
