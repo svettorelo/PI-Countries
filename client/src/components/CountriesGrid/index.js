@@ -3,7 +3,6 @@ import CountryCard from "../CountryCard";
 import {Link} from "react-router-dom";
 import "./CountriesGrid.css";
 import {setPage} from "../../actions";
-import {useEffect} from "react";
 
 export function CountriesGrid(props){
 
@@ -12,7 +11,6 @@ export function CountriesGrid(props){
   const countriesToShow = resultCountries.length? resultCountries : countries;
   const total = countriesToShow.length;
   const maxPage = Math.floor(total/10) + 1;
- // useEffect(()=>setPage(1),[resultCountries]);
 
   function nextPage() {
       setPage(currentPage < maxPage ? currentPage + 1 : currentPage);

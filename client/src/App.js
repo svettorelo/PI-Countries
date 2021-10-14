@@ -5,9 +5,8 @@ import Home  from './components/Home';
 import CountryDetail from './components/CountryDetail';
 import LandingPage from './components/LandingPage'
 import NewActivity from "./components/NewActivity";
-
-import store from "./store";
-import {Provider} from 'react-redux';
+// import store from "./store";
+// import {Provider} from 'react-redux';
 
 export default function App() {
   return (

@@ -106,18 +106,14 @@ export function frontOrder(parameters){
     case 'abc':
       return function (dispatch){
         dispatch({type:'FRONT_ORDER', payload:function (a,b){
-            if(a.name < b.name) return -1;
-            if(a.name > b.name) return 1;
-            return 0;
+            return a.name.localeCompare(b.name);
           }
         })
       }
     case 'zyx':
       return function (dispatch){
         dispatch({type:'FRONT_ORDER',payload:function (a,b){
-            if(a.name > b.name) return -1;
-            if(a.name < b.name) return 1;
-            return 0;
+           return b.name.localeCompare(a.name);
           }}
         )}
     case 'pAsc':

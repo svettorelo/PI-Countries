@@ -29,9 +29,5 @@
     bottom: 20px;
     left: 50%;
     margin-left: -250px;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
     background: #bd5c50;
-    justify-content: space-evenly;
 }
