@@ -8,6 +8,9 @@
   <img height="200" src="./countries.png" alt="countries.png"/>
 </p>
 
+## Proyecto terminado
+- https://pi-countries-kappa.vercel.app/
+
 ## Objetivos del Proyecto
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
