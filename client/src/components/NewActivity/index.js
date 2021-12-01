@@ -6,7 +6,7 @@ import {addActivity} from "../../actions";
 //import axios from "axios";
 
 export function NewActivity(props){
-  let num = Date()[20];  //to change the background photo every minute
+  let num = Date()[19];  //to change the background photo every minute
 
   function compare(a,b) {
     if (a.name < b.name) return -1;
