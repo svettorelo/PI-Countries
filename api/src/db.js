@@ -1,4 +1,5 @@
 require('dotenv').config();
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
